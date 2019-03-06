@@ -1,0 +1,33 @@
+node {
+
+stage('Clone Repository')
+{
+checkout scm
+}
+
+stage('Show me the files'){
+sh "ls -l"
+}
+
+stage('Build docker image'){
+
+sh "docker build -t website:latest ."
+}
+
+stage('Docker login'){
+sh "docker login -u 'mmureithi' -p 'Mureithi5' "
+}
+stage('Create image space'){
+sh "docker tag website:latest mmureithi/moringa:latest"
+}
+stage('Pushing image to Docker'){
+sh "docker push mmureithi/docker_test:latest"
+}
+
+
+stage('Apply changes to the environment') {
+sh "ls -l"
+}
+
+
+}
